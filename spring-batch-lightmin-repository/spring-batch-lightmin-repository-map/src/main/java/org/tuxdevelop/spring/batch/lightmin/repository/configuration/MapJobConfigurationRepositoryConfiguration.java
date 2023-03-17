@@ -8,15 +8,19 @@ import org.tuxdevelop.spring.batch.lightmin.repository.MapJobConfigurationReposi
 @Configuration
 public class MapJobConfigurationRepositoryConfiguration extends LightminJobConfigurationRepositoryConfigurer {
 
+    //Cannot access Bean directly in configureJobConfigurationRepository due it is called by @PostConstruct in super class
+    // https://github.com/spring-projects/spring-framework/issues/27876
+    private static final MapJobConfigurationRepository mapJobConfigurationRepository = new MapJobConfigurationRepository();
+
     @Override
     @Bean
     public JobConfigurationRepository jobConfigurationRepository() {
-        return new MapJobConfigurationRepository();
+        return mapJobConfigurationRepository;
     }
 
     @Override
     protected void configureJobConfigurationRepository() {
-        this.setJobConfigurationRepository(this.jobConfigurationRepository());
+        this.setJobConfigurationRepository(mapJobConfigurationRepository);
     }
 
 }
