@@ -1,7 +1,7 @@
 package org.tuxdevelop.spring.batch.lightmin.repository.server.api.controller;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.tuxdevelop.spring.batch.lightmin.domain.JobConfiguration;
 import org.tuxdevelop.spring.batch.lightmin.domain.JobSchedulerConfiguration;
 import org.tuxdevelop.spring.batch.lightmin.domain.JobSchedulerType;
@@ -67,8 +67,9 @@ public abstract class JobConfigurationRepositoryControllerIT {
         try {
             this.getJobConfigurationRepository().delete(jobConfiguration, APPLICATION_NAME);
             final Collection<JobConfiguration> response = this.getJobConfigurationRepository().getJobConfigurations("sampleJob", APPLICATION_NAME);
-            assertThat(response).isNotNull();
-            assertThat(response.contains(jobConfiguration)).isFalse();
+            assertThat(response)
+                    .isNotNull()
+                    .doesNotContain(jobConfiguration);
         } catch (final NoSuchJobException | NoSuchJobConfigurationException e) {
             //ok, jobConfiguration is deleted
         }
@@ -78,28 +79,27 @@ public abstract class JobConfigurationRepositoryControllerIT {
     public void testGetAllJobConfigurations() {
         this.createNewJobConfiguration();
         final Collection<JobConfiguration> response = this.getJobConfigurationRepository().getAllJobConfigurations(APPLICATION_NAME);
-        assertThat(response).isNotNull();
-        assertThat(response).isNotEmpty();
+        assertThat(response)
+                .isNotNull()
+                .isNotEmpty();
     }
 
     @Test
     public void testGetAllJobConfigurationsByJobNames() {
-        final JobConfiguration jobConfiguration = this.createNewJobConfiguration();
+        final JobConfiguration jobConfiguration = this.createNewJobConfigurationWithoutSave();
+        final String newJobName = "otherJob";
+        jobConfiguration.setJobName(newJobName);
+        //save otherJob
+        this.getJobConfigurationRepository().add(jobConfiguration, APPLICATION_NAME);
+        //save sampleJob
         this.createNewJobConfiguration();
         final List<String> jobNames = new ArrayList<>();
         jobNames.add("sampleJob");
         jobNames.add("otherJob");
-        try {
-            final String newJobName = "otherJob";
-            jobConfiguration.setJobName(newJobName);
-            this.getJobConfigurationRepository().update(jobConfiguration, APPLICATION_NAME);
-            final Collection<JobConfiguration> response = this.getJobConfigurationRepository()
-                    .getAllJobConfigurationsByJobNames(jobNames, APPLICATION_NAME);
-            assertThat(response).isNotNull();
-            assertThat(response).isNotEmpty();
-        } catch (final NoSuchJobConfigurationException e) {
-            fail(e.getMessage());
-        }
+        final Collection<JobConfiguration> response = this.getJobConfigurationRepository().getAllJobConfigurationsByJobNames(jobNames, APPLICATION_NAME);
+        assertThat(response)
+                .isNotNull()
+                .isNotEmpty();
     }
 
     private JobConfiguration createNewJobConfiguration() {
@@ -109,11 +109,17 @@ public abstract class JobConfigurationRepositoryControllerIT {
         return this.getJobConfigurationRepository().add(jobConfiguration, APPLICATION_NAME);
     }
 
+    private JobConfiguration createNewJobConfigurationWithoutSave() {
+        final JobSchedulerConfiguration jobSchedulerConfiguration = DomainTestHelper.createJobSchedulerConfiguration(null, 1000L, 100L, JobSchedulerType.PERIOD);
+        jobSchedulerConfiguration.setBeanName("mySampleBean_" + System.currentTimeMillis());
+        return DomainTestHelper.createJobConfiguration(jobSchedulerConfiguration);
+    }
+
     public abstract JobConfigurationRepository getJobConfigurationRepository();
 
     public abstract ITJobConfigurationRepository getITItJdbcJobConfigurationRepository();
 
-    @Before
+    @BeforeEach
     public void init() {
         this.getITItJdbcJobConfigurationRepository().clean(APPLICATION_NAME);
     }

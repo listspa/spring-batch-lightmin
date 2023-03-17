@@ -1,6 +1,6 @@
 package org.tuxdevelop.spring.batch.lightmin.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.tuxdevelop.spring.batch.lightmin.exception.SpringBatchLightminApplicationException;
@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DomainParameterParserTest {
 
@@ -21,11 +22,12 @@ public class DomainParameterParserTest {
         final String parameters = "testS(String)=56788,testL(Long)=56,testD(date)=2015/03/27 23:19:24:120";
         final Map<String, Object> parameterMap = DomainParameterParser
                 .parseParameters(parameters);
-        assertThat(parameterMap).isNotNull();
-        assertThat(parameterMap).isNotEmpty();
-        assertThat(parameterMap.containsKey("testS")).isTrue();
-        assertThat(parameterMap.containsKey("testL")).isTrue();
-        assertThat(parameterMap.containsKey("testD")).isTrue();
+        assertThat(parameterMap)
+                .isNotNull()
+                .isNotEmpty()
+                .containsKey("testS")
+                .containsKey("testL")
+                .containsKey("testD");
         final String stringValue = (String) parameterMap.get("testS");
         final Long longValue = (Long) parameterMap.get("testL");
         final Date dateValue = (Date) parameterMap.get("testD");
@@ -54,8 +56,9 @@ public class DomainParameterParserTest {
     public void parseParametersNullTest() {
         final Map<String, Object> parameterMap = DomainParameterParser
                 .parseParameters(null);
-        assertThat(parameterMap).isNotNull();
-        assertThat(parameterMap).isEmpty();
+        assertThat(parameterMap)
+                .isNotNull()
+                .isEmpty();
     }
 
     @Test
@@ -116,15 +119,15 @@ public class DomainParameterParserTest {
         assertThat(simpleDateFormat.format(date)).isEqualTo(dateString);
     }
 
-    @Test(expected = SpringBatchLightminApplicationException.class)
+    @Test
     public void parseDateExceptionTest() {
         final String dateString = "2015/03:27";
-        DomainParameterParser.parseDate(dateString);
+        assertThrows(SpringBatchLightminApplicationException.class, () -> DomainParameterParser.parseDate(dateString));
     }
 
-    @Test(expected = SpringBatchLightminApplicationException.class)
+    @Test
     public void createValueInstanceExceptionTest() {
-        DomainParameterParser.createValueInstance("CLASS", "1234");
+        assertThrows(SpringBatchLightminApplicationException.class, () -> DomainParameterParser.createValueInstance("CLASS", "1234"));
     }
 
     @Test

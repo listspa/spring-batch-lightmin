@@ -1,11 +1,11 @@
 package org.tuxdevelop.spring.batch.lightmin.service;
 
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.tuxdevelop.spring.batch.lightmin.client.api.LightminClientApplication;
 import org.tuxdevelop.spring.batch.lightmin.client.configuration.LightminClientProperties;
 import org.tuxdevelop.spring.batch.lightmin.server.service.AdminServerService;
@@ -17,7 +17,7 @@ import java.util.LinkedList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 @SpringBootTest(
         classes = {ITEmbeddedConfigurationApplication.class, ITEmbeddedConfiguration.class},
@@ -36,7 +36,7 @@ public class EmbeddedAdminServerServiceIT extends AdminServerServiceIT {
 
     @Override
     public AdminServerService getAdminServerService() {
-        assertThat(this.adminServerService instanceof EmbeddedAdminServerService).isTrue();
+        assertThat(this.adminServerService).isInstanceOf(EmbeddedAdminServerService.class);
         return this.adminServerService;
     }
 

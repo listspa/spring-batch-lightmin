@@ -22,10 +22,10 @@ public final class LightminApplicationValidator {
         Assert.hasText(lightminClientApplication.getHealthUrl(), "Health-URL must not be null");
         Assert.isTrue(validateUrl(lightminClientApplication.getHealthUrl()), "Health-URL is not valid");
         Assert.isTrue(
-                StringUtils.isEmpty(lightminClientApplication.getManagementUrl())
+                !StringUtils.hasLength(lightminClientApplication.getManagementUrl())
                         || validateUrl(lightminClientApplication.getManagementUrl()), "URL is not valid");
         Assert.isTrue(
-                StringUtils.isEmpty(lightminClientApplication.getServiceUrl())
+                !StringUtils.hasLength(lightminClientApplication.getServiceUrl())
                         || validateUrl(lightminClientApplication.getServiceUrl()), "URL is not valid");
     }
 

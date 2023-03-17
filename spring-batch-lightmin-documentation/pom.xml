@@ -102,7 +102,6 @@
                         <configuration>
                             <backend>html</backend>
                             <doctype>article</doctype>
-                            <sourceHighlighter>coderay</sourceHighlighter>
                             <!--<embedAssets>true</embedAssets> -->
                             <sourceDocumentName>spring_batch_lightmin.adoc</sourceDocumentName>
                             <outputDirectory>src/main/doc</outputDirectory>

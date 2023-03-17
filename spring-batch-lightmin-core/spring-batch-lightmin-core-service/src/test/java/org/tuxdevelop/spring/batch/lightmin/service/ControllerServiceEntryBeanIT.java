@@ -1,12 +1,12 @@
 package org.tuxdevelop.spring.batch.lightmin.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.tuxdevelop.spring.batch.lightmin.api.resource.admin.JobConfiguration;
 import org.tuxdevelop.spring.batch.lightmin.api.resource.admin.JobConfigurations;
 import org.tuxdevelop.spring.batch.lightmin.api.resource.admin.JobSchedulerConfiguration;
@@ -26,7 +26,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = ITConfiguration.class)
 public class ControllerServiceEntryBeanIT {
 
@@ -132,7 +132,7 @@ public class ControllerServiceEntryBeanIT {
         final Collection<String> jobNames = new LinkedList<>();
         jobNames.add(jobName);
         final Map<String, JobConfigurations> result = this.serviceEntry.getJobConfigurationMap(jobNames);
-        assertThat(result.containsKey(jobName)).isTrue();
+        assertThat(result).containsKey(jobName);
         final JobConfigurations jobConfigurations = result.get(jobName);
         final Collection<JobConfiguration> fetchedJobConfigurations = jobConfigurations.getJobConfigurations();
         assertThat(fetchedJobConfigurations).isNotEmpty();
@@ -140,7 +140,7 @@ public class ControllerServiceEntryBeanIT {
         assertThat(jobConfigurationResult.getJobName()).isEqualTo(jobName);
     }
 
-    @Before
+    @BeforeEach
     public void init() {
         try {
             final Collection<org.tuxdevelop.spring.batch.lightmin.domain.JobConfiguration> allJC = this.adminService.getJobConfigurationsByJobName(JOB_NAME);

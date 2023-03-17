@@ -170,7 +170,7 @@ public class LightminClientProperties {
     private String append(final String uri, final String path) {
         final String baseUri = uri.replaceFirst("/+$", "");
         final String resultUri;
-        if (StringUtils.isEmpty(path)) {
+        if (!StringUtils.hasLength(path)) {
             resultUri = baseUri;
         } else {
 

@@ -1,10 +1,10 @@
 package org.tuxdevelop.spring.batch.lightmin.service;
 
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.tuxdevelop.spring.batch.lightmin.client.api.LightminClientApplication;
 import org.tuxdevelop.spring.batch.lightmin.client.configuration.LightminClientProperties;
 import org.tuxdevelop.spring.batch.lightmin.server.service.JobServerService;
@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(
         classes = {ITEmbeddedConfigurationApplication.class, ITEmbeddedConfiguration.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -34,7 +34,7 @@ public class EmbeddedJobServerServiceIT extends JobServerServiceIT {
 
     @Override
     public JobServerService getJobServerService() {
-        assertThat(this.jobServerService instanceof EmbeddedJobServerService).isTrue();
+        assertThat(this.jobServerService).isInstanceOf(EmbeddedJobServerService.class);
         return this.jobServerService;
     }
 
