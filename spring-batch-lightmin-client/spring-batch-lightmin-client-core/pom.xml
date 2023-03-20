@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-batch-lightmin-client</artifactId>
-        <groupId>org.tuxdevelop</groupId>
+        <groupId>org.listspa</groupId>
         <version>2.2.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,41 +14,41 @@
     <dependencies>
         <!--spring batch lightmin -->
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-core-starter</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!--spring batch lightmin -->
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-util</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-metrics</artifactId>
             <version>${project.version}</version>
         </dependency>
 
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-test-core</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-test-domain</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-test-api</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

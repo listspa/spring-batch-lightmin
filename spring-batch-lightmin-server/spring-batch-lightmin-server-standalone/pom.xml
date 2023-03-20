@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-batch-lightmin-server</artifactId>
-        <groupId>org.tuxdevelop</groupId>
+        <groupId>org.listspa</groupId>
         <version>2.2.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -15,62 +15,62 @@
 
         <!-- spring batch lightmin -->
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-client-classic</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-client-discovery-consul</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-server-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <!-- spring batch lightmin -->
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-repository-server</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-repository-map</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-repository-jdbc</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-repository-remote</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-server-fe</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-test-api</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
