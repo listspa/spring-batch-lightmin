@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.tuxdevelop</groupId>
+    <groupId>org.listspa</groupId>
     <artifactId>spring-batch-lightmin</artifactId>
     <packaging>pom</packaging>
 
@@ -16,7 +16,7 @@
     </description>
 
     <!-- project url -->
-    <url>https://github.com/tuxdevelop/spring-batch-lightmin</url>
+    <url>https://github.com/listspa/spring-batch-lightmin</url>
 
     <!-- license -->
     <licenses>
@@ -202,23 +202,18 @@
 
     <!-- scm information -->
     <scm>
-        <connection>scm:git:git@github.com:tuxdevelop/spring-batch-lightmin.git</connection>
-        <developerConnection>scm:git:tuxdevelop@github.com:tuxdevelop/spring-batch-lightmin.git
-        </developerConnection>
-        <url>https://github.com/tuxdevelop/spring-batch-lightmin.git</url>
+        <connection>scm:git:git@github.com:listspa/spring-batch-lightmin.git</connection>
+        <url>https://github.com/listspa/spring-batch-lightmin.git</url>
     </scm>
 
 
     <!-- distribution management -->
     <distributionManagement>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/listspa/spring-batch-lightmin</url>
         </repository>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <!-- build section -->
@@ -349,18 +344,6 @@
             </activation>
             <build>
                 <plugins>
-                    <!-- sonatype -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus-staging-maven-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
