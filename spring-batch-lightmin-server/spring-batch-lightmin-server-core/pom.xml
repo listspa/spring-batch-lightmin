@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>spring-batch-lightmin-server</artifactId>
-        <groupId>org.tuxdevelop</groupId>
+        <groupId>org.listspa</groupId>
         <version>2.2.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,20 +12,20 @@
     <artifactId>spring-batch-lightmin-server-core</artifactId>
 
     <properties>
-        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
     </properties>
 
 
     <dependencies>
         <!-- spring batch lightmin -->
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-client-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>org.tuxdevelop</groupId>
+            <groupId>org.listspa</groupId>
             <artifactId>spring-batch-lightmin-metrics</artifactId>
             <version>${project.version}</version>
         </dependency>
