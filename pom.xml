@@ -32,7 +32,7 @@
         </developer>
     </developers>
 
-    <version>2.2.2-SNAPSHOT</version>
+    <version>3.0.0</version>
 
     <modules>
         <module>spring-batch-lightmin-core</module>
