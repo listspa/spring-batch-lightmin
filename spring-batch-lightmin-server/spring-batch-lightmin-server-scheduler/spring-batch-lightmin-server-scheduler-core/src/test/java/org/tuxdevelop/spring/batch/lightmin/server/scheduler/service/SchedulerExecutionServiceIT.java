@@ -2,12 +2,12 @@ package org.tuxdevelop.spring.batch.lightmin.server.scheduler.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.BDDAssertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.tuxdevelop.spring.batch.lightmin.server.scheduler.exception.SchedulerRuntimException;
 import org.tuxdevelop.spring.batch.lightmin.server.scheduler.repository.CleanUpRepository;
 import org.tuxdevelop.spring.batch.lightmin.server.scheduler.repository.domain.ExecutionStatus;
@@ -21,9 +21,10 @@ import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Fail.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
-@RunWith(SpringRunner.class)
+@ExtendWith(MockitoExtension.class)
 @SpringBootTest(classes = {SchedulerCoreITConfiguration.class})
 public class SchedulerExecutionServiceIT extends CommonServiceIT {
 
@@ -45,9 +46,9 @@ public class SchedulerExecutionServiceIT extends CommonServiceIT {
 
     }
 
-    @Test(expected = SchedulerValidationException.class)
+    @Test
     public void testSaveNull() {
-        this.schedulerExecutionService.save(null);
+        assertThrows(SchedulerValidationException.class, () -> this.schedulerExecutionService.save(null));
     }
 
     @Test
@@ -63,9 +64,9 @@ public class SchedulerExecutionServiceIT extends CommonServiceIT {
         BDDAssertions.then(result.size()).isEqualTo(beforeCreation.size() + 1);
     }
 
-    @Test(expected = SchedulerValidationException.class)
+    @Test
     public void testCreateNextExecutionNull() {
-        this.schedulerExecutionService.createNextExecution(null, "0 0/2 0 ? * *");
+        assertThrows(SchedulerValidationException.class, () -> this.schedulerExecutionService.createNextExecution(null, "0 0/2 0 ? * *"));
     }
 
     @Test
@@ -81,12 +82,12 @@ public class SchedulerExecutionServiceIT extends CommonServiceIT {
     }
 
 
-    @Test(expected = SchedulerRuntimException.class)
+    @Test
     public void testDeleteExecutionStateRunning() {
         final SchedulerExecution schedulerExecution = SchedulerExecutionTestHelper.createSchedulerExecution();
         schedulerExecution.setState(ExecutionStatus.RUNNING);
         final SchedulerExecution saved = this.schedulerExecutionService.save(schedulerExecution);
-        this.schedulerExecutionService.deleteExecution(saved.getId());
+        assertThrows(SchedulerRuntimException.class, () -> this.schedulerExecutionService.deleteExecution(saved.getId()));
     }
 
     @Test
@@ -96,9 +97,9 @@ public class SchedulerExecutionServiceIT extends CommonServiceIT {
         BDDAssertions.then(found).isEqualTo(saved);
     }
 
-    @Test(expected = SchedulerRuntimException.class)
+    @Test
     public void testFindByIdNotFound() {
-        this.schedulerExecutionService.findById(-1L);
+        assertThrows(SchedulerRuntimException.class, () -> this.schedulerExecutionService.findById(-1L));
     }
 
     @Test
@@ -109,10 +110,10 @@ public class SchedulerExecutionServiceIT extends CommonServiceIT {
         BDDAssertions.then(fireDate).isAfter(now);
     }
 
-    @Test(expected = SchedulerRuntimException.class)
+    @Test
     public void testGetNextFireTimeUnparsableExpression() {
         final String cron = "0 0/2 0 ?";
-        this.schedulerExecutionService.getNextFireTime(cron);
+        assertThrows(SchedulerRuntimException.class,() -> this.schedulerExecutionService.getNextFireTime(cron));
     }
 
     @Override

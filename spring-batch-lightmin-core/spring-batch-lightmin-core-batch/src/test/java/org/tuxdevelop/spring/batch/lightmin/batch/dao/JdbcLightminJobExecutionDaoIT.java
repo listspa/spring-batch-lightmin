@@ -1,14 +1,14 @@
 package org.tuxdevelop.spring.batch.lightmin.batch.dao;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.batch.core.*;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.tuxdevelop.test.configuration.ITPersistenceConfiguration;
 
 import java.util.Date;
@@ -19,7 +19,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = ITPersistenceConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class JdbcLightminJobExecutionDaoIT {
@@ -51,7 +51,7 @@ public class JdbcLightminJobExecutionDaoIT {
         this.init();
         final JobInstance jobInstance = new JobInstance(9999L, "notExisting");
         final int count = this.jdbcLightminJobExecutionDao.getJobExecutionCount(jobInstance);
-        assertThat(count).isEqualTo(0);
+        assertThat(count).isZero();
     }
 
     @Test
@@ -60,8 +60,8 @@ public class JdbcLightminJobExecutionDaoIT {
         final JobInstance jobInstance = this.jobExplorer.getJobInstance(1L);
         final List<JobExecution> jobExecutions = this.jdbcLightminJobExecutionDao.findJobExecutions(jobInstance, 0,
                 JOB_EXECUTION_COUNT);
-        assertThat(jobExecutions).isNotNull();
-        assertThat(jobExecutions).hasSize(JOB_EXECUTION_COUNT);
+        assertThat(jobExecutions).isNotNull()
+                .hasSize(JOB_EXECUTION_COUNT);
         for (final JobExecution jobExecution : jobExecutions) {
             assertThat(jobExecution.getJobInstance()).isEqualTo(jobInstance);
         }
@@ -74,8 +74,8 @@ public class JdbcLightminJobExecutionDaoIT {
         final JobInstance jobInstance = this.jobExplorer.getJobInstance(1L);
         final List<JobExecution> jobExecutions = this.jdbcLightminJobExecutionDao.findJobExecutions(jobInstance, 0,
                 count);
-        assertThat(jobExecutions).isNotNull();
-        assertThat(jobExecutions).hasSize(count);
+        assertThat(jobExecutions).isNotNull()
+                .hasSize(count);
         for (final JobExecution jobExecution : jobExecutions) {
             assertThat(jobExecution.getJobInstance()).isEqualTo(jobInstance);
         }
@@ -88,8 +88,8 @@ public class JdbcLightminJobExecutionDaoIT {
         final JobInstance jobInstance = this.jobExplorer.getJobInstance(1L);
         final List<JobExecution> jobExecutions = this.jdbcLightminJobExecutionDao.getJobExecutions(jobInstance.getJobName(), 0,
                 count);
-        assertThat(jobExecutions).isNotNull();
-        assertThat(jobExecutions).hasSize(count);
+        assertThat(jobExecutions).isNotNull()
+                .hasSize(count);
         for (final JobExecution jobExecution : jobExecutions) {
             final JobExecution fromRepo = this.jobExplorer.getJobExecution(jobExecution.getId());
             //has to be set to null
@@ -103,15 +103,15 @@ public class JdbcLightminJobExecutionDaoIT {
         this.init();
         final JobInstance jobInstance = new JobInstance(9999L, "notExisting");
         final List<JobExecution> jobExecutions = this.jdbcLightminJobExecutionDao.findJobExecutions(jobInstance, 0, 10);
-        assertThat(jobExecutions).isNotNull();
-        assertThat(jobExecutions).isEmpty();
+        assertThat(jobExecutions).isNotNull()
+                .isEmpty();
     }
 
     @Test
     public void testFindJobExecutionsAllQueryParameter() {
         this.init();
         final String jobName = "simpleJob";
-        final Integer size = 4;
+        final int size = 4;
         final Date startDate = new Date(System.currentTimeMillis() - 100000);
         final Date endDate = new Date(System.currentTimeMillis() + 100000);
         final String exitStatus = ExitStatus.COMPLETED.getExitCode();
@@ -120,15 +120,15 @@ public class JdbcLightminJobExecutionDaoIT {
         queryParameters.put(QueryParameterKey.START_DATE, startDate);
         queryParameters.put(QueryParameterKey.END_DATE, endDate);
         final List<JobExecution> result = this.jdbcLightminJobExecutionDao.findJobExecutions(jobName, queryParameters, size);
-        assertThat(result).isNotNull();
-        assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(size);
+        assertThat(result).isNotNull()
+                .isNotEmpty()
+                .hasSize(size);
     }
 
     @Test
     public void testFindJobExecutionsAllQueryParameterWithoutJobName() {
         this.init();
-        final Integer size = 4;
+        final int size = 4;
         final Date startDate = new Date(System.currentTimeMillis() - 100000);
         final Date endDate = new Date(System.currentTimeMillis() + 100000);
         final String exitStatus = ExitStatus.COMPLETED.getExitCode();
@@ -137,51 +137,51 @@ public class JdbcLightminJobExecutionDaoIT {
         queryParameters.put(QueryParameterKey.START_DATE, startDate);
         queryParameters.put(QueryParameterKey.END_DATE, endDate);
         final List<JobExecution> result = this.jdbcLightminJobExecutionDao.findJobExecutions(null, queryParameters, size);
-        assertThat(result).isNotNull();
-        assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(size);
+        assertThat(result).isNotNull()
+                .isNotEmpty()
+                .hasSize(size);
     }
 
     @Test
     public void testFindJobExecutionsExitStatus() {
         this.init();
         final String jobName = "simpleJob";
-        final Integer size = 4;
+        final int size = 4;
         final String exitStatus = ExitStatus.COMPLETED.getExitCode();
         final Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put(QueryParameterKey.EXIT_STATUS, exitStatus);
         final List<JobExecution> result = this.jdbcLightminJobExecutionDao.findJobExecutions(jobName, queryParameters, size);
-        assertThat(result).isNotNull();
-        assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(size);
+        assertThat(result).isNotNull()
+                .isNotEmpty()
+                .hasSize(size);
     }
 
     @Test
     public void testFindJobExecutionsStartDate() {
         this.init();
         final String jobName = "simpleJob";
-        final Integer size = 4;
+        final int size = 4;
         final Date startDate = new Date(System.currentTimeMillis() - 100000);
         final Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put(QueryParameterKey.START_DATE, startDate);
         final List<JobExecution> result = this.jdbcLightminJobExecutionDao.findJobExecutions(jobName, queryParameters, size);
-        assertThat(result).isNotNull();
-        assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(size);
+        assertThat(result).isNotNull()
+                .isNotEmpty()
+                .hasSize(size);
     }
 
     @Test
     public void testFindJobExecutionsEndDate() {
         this.init();
         final String jobName = "simpleJob";
-        final Integer size = 4;
+        final int size = 4;
         final Date endDate = new Date(System.currentTimeMillis() + 100000);
         final Map<String, Object> queryParameters = new HashMap<>();
         queryParameters.put(QueryParameterKey.END_DATE, endDate);
         final List<JobExecution> result = this.jdbcLightminJobExecutionDao.findJobExecutions(jobName, queryParameters, size);
-        assertThat(result).isNotNull();
-        assertThat(result).isNotEmpty();
-        assertThat(result).hasSize(size);
+        assertThat(result).isNotNull()
+                .isNotEmpty()
+                .hasSize(size);
     }
 
 

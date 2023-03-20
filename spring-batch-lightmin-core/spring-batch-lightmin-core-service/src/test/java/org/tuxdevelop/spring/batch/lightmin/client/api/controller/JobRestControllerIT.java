@@ -1,7 +1,7 @@
 package org.tuxdevelop.spring.batch.lightmin.client.api.controller;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -142,12 +142,14 @@ public class JobRestControllerIT extends CommonControllerIT {
         final ResponseEntity<JobExecution[]> response = this.restTemplate.postForEntity(uriComponentsBuilder.toUriString(), queryParameters, JobExecution[].class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         final JobExecution[] body = response.getBody();
-        assertThat(body).isNotNull().isNotEmpty();
-        assertThat(body.length >= 1).isTrue();
-        assertThat(body.length <= 4).isTrue();
+        assertThat(body)
+                .isNotNull()
+                .isNotEmpty()
+                .hasSizeGreaterThanOrEqualTo(1)
+                .hasSizeLessThanOrEqualTo(4);
     }
 
-    @Before
+    @BeforeEach
     public void init() {
         this.cleanUp();
         this.launchSimpleJob();

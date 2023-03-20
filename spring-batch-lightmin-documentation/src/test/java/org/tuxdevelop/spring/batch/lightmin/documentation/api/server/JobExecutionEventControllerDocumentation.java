@@ -2,7 +2,7 @@ package org.tuxdevelop.spring.batch.lightmin.documentation.api.server;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.tuxdevelop.spring.batch.lightmin.api.resource.batch.ExitStatus;
 import org.tuxdevelop.spring.batch.lightmin.api.resource.monitoring.JobExecutionEventInfo;

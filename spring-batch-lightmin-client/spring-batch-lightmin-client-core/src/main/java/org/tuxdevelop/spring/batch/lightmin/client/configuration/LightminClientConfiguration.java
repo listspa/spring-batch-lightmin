@@ -96,7 +96,7 @@ public class LightminClientConfiguration {
         @Bean
         @ConditionalOnMissingBean(value = MeterRegistryCustomizer.class)
         public MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
-            return registry -> registry.config();
+            return MeterRegistry::config;
         }
 
         @Bean("clientMetricService")

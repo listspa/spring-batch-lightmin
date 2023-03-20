@@ -644,15 +644,15 @@ public class JdbcJobConfigurationRepository implements JobConfigurationRepositor
             if (map.containsKey(key)) {
                 final String mapValue = (String) map.get(key);
                 if (clazz.isAssignableFrom(Long.class)) {
-                    value = (T) new Long(Long.parseLong(mapValue));
+                    value = (T) Long.valueOf(mapValue);
                 } else if (clazz.isAssignableFrom(String.class)) {
                     value = (T) mapValue;
                 } else if (clazz.isAssignableFrom(Integer.class)) {
-                    value = (T) new Integer(Integer.parseInt(mapValue));
+                    value = (T) Integer.valueOf(mapValue);
                 } else if (clazz.isAssignableFrom(Date.class)) {
                     value = (T) DomainParameterParser.parseDate(mapValue);
                 } else if (clazz.isAssignableFrom(Double.class)) {
-                    value = (T) new Double(Double.parseDouble(mapValue));
+                    value = (T) Double.valueOf(mapValue);
                 } else {
                     value = (T) mapValue;
                 }
