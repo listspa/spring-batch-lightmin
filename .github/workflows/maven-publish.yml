@@ -1,4 +1,4 @@
-name: Publish package to GitHub Packages
+name: Publish packages to GitHub Packages
 on:
   release:
     types: [created]
@@ -14,7 +14,13 @@ jobs:
         with:
           java-version: '8'
           distribution: 'temurin'
-      - name: Publish package
+      - name: Publish packages
         run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish bom package
+        run: |
+          cd spring-batch-lightmin-bom
+          mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
