@@ -111,7 +111,7 @@ public final class LightminTypeMapper {
                 jobIncremeterTypeModels.add(model);
             }
         } else {
-            log.debug("IobIncrementers are null, nothing to map");
+            log.debug("JobIncrementers are null, nothing to map");
         }
         return jobIncremeterTypeModels;
     }

@@ -1,12 +1,13 @@
 package org.tuxdevelop.spring.batch.lightmin.client.classic.service;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.batch.core.configuration.JobRegistry;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Fail.fail;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.Silent.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class LightminClientRegistrationServiceTest {
 
     @Mock
@@ -69,7 +71,6 @@ public class LightminClientRegistrationServiceTest {
 
     @Test
     public void testDeregister() {
-
         try {
             when(this.lightminServerLocatorService.getRemoteUrls()).thenReturn(Collections.singletonList("http://localhost:8080"));
             this.lightminClientRegistratorService.deregister(null);
@@ -79,18 +80,10 @@ public class LightminClientRegistrationServiceTest {
 
     }
 
-    @Before
+    @BeforeEach
     public void init() {
-        MockitoAnnotations.initMocks(this);
         when(this.lightminClientClassicConfigurationProperties.getServer())
                 .thenReturn(new LightminClientClassicConfigurationProperties.LightminClientServerProperties());
-        this.lightminClientRegistratorService =
-                new LightminClientRegistratorService(
-                        this.lightminClientProperties,
-                        this.lightminClientClassicConfigurationProperties,
-                        this.restTemplate,
-                        this.jobRegistry,
-                        this.lightminServerLocatorService);
     }
 
 }
