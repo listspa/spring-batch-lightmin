@@ -496,6 +496,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_server_side_auto_discovery">Server Side auto discovery</a></li>
 <li><a href="#_server_behind_a_proxy_2">Server behind a Proxy</a></li>
 <li><a href="#_custom_ui_logo_and_text">Custom UI Logo and Text</a></li>
+<li><a href="#_enabledisable_index_and_about">Enable/Disable Index and About</a></li>
 <li><a href="#_server_metrics">Server Metrics</a></li>
 <li><a href="#_server_scheduler_3">Server Scheduler</a></li>
 </ul>
@@ -2059,6 +2060,24 @@ If the logo property is set, the text will be displayed</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_enabledisable_index_and_about">Enable/Disable Index and About</h3>
+<div class="paragraph">
+<p>If you want to disable index redirection and about page set variable to false.
+They are enabled by default.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  batch:
+    lightmin:
+      server:
+        fe:
+          index: false
+          about: false</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_server_metrics">Server Metrics</h3>
 <div class="paragraph">
 <p>In order to collect metrics of a <em>Lightmin</em> server , the following property has to be to <em>true</em>.</p>
@@ -3295,20 +3314,20 @@ Content-Length: 808
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:43 GMT
+Date: Thu, 23 Mar 2023 15:09:54 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 896
 
 {
-  "id" : "c5ee540c",
+  "id" : "3f2b7918",
   "name" : "it-application",
-  "managementUrl" : "http://localhost:61158/actuator",
-  "healthUrl" : "http://localhost:61158/actuator/health",
-  "serviceUrl" : "http://localhost:61158",
+  "managementUrl" : "http://localhost:58052/actuator",
+  "healthUrl" : "http://localhost:58052/actuator/health",
+  "serviceUrl" : "http://localhost:58052",
   "lightminClientApplicationStatus" : {
     "status" : "UNKNOWN",
-    "timeInMills" : 1679328403622
+    "timeInMills" : 1679584194940
   },
   "lightminClientInformation" : {
     "supportedSchedulerTypes" : [ "CRON", "PERIOD" ],
@@ -3332,7 +3351,7 @@ Content-Length: 896
 <h5 id="_curl_2">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost/api/applications/c5ee540c' -i -X DELETE \
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost/api/applications/3f2b7918' -i -X DELETE \
     -H 'Accept: application/json, application/javascript, text/javascript, text/json' \
     -H 'Content-Type: application/json'</code></pre>
 </div>
@@ -3342,7 +3361,7 @@ Content-Length: 896
 <h5 id="_http_request_2">HTTP Request</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/applications/c5ee540c HTTP/1.1
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/applications/3f2b7918 HTTP/1.1
 Accept: application/json, application/javascript, text/javascript, text/json
 Content-Type: application/json
 Host: localhost</code></pre>
@@ -3356,20 +3375,20 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:43 GMT
+Date: Thu, 23 Mar 2023 15:09:54 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 896
 
 {
-  "id" : "c5ee540c",
+  "id" : "3f2b7918",
   "name" : "it-application",
-  "managementUrl" : "http://localhost:61158/actuator",
-  "healthUrl" : "http://localhost:61158/actuator/health",
-  "serviceUrl" : "http://localhost:61158",
+  "managementUrl" : "http://localhost:58052/actuator",
+  "healthUrl" : "http://localhost:58052/actuator/health",
+  "serviceUrl" : "http://localhost:58052",
   "lightminClientApplicationStatus" : {
     "status" : "UNKNOWN",
-    "timeInMills" : 1679328403622
+    "timeInMills" : 1679584194940
   },
   "lightminClientInformation" : {
     "supportedSchedulerTypes" : [ "CRON", "PERIOD" ],
@@ -3417,20 +3436,20 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:43 GMT
+Date: Thu, 23 Mar 2023 15:09:54 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 900
 
 [ {
-  "id" : "c5ee540c",
+  "id" : "3f2b7918",
   "name" : "it-application",
-  "managementUrl" : "http://localhost:61158/actuator",
-  "healthUrl" : "http://localhost:61158/actuator/health",
-  "serviceUrl" : "http://localhost:61158",
+  "managementUrl" : "http://localhost:58052/actuator",
+  "healthUrl" : "http://localhost:58052/actuator/health",
+  "serviceUrl" : "http://localhost:58052",
   "lightminClientApplicationStatus" : {
     "status" : "UNKNOWN",
-    "timeInMills" : 1679328403622
+    "timeInMills" : 1679584194940
   },
   "lightminClientInformation" : {
     "supportedSchedulerTypes" : [ "CRON", "PERIOD" ],
@@ -3465,8 +3484,8 @@ Content-Length: 900
     "exitCode" : "FAILED",
     "exitDescription" : "failed for test"
   },
-  "startDate" : 1679328403526,
-  "endDate" : 1679328413526
+  "startDate" : 1679584194815,
+  "endDate" : 1679584204815
 }'</code></pre>
 </div>
 </div>
@@ -3489,8 +3508,8 @@ Content-Length: 257
     "exitCode" : "FAILED",
     "exitDescription" : "failed for test"
   },
-  "startDate" : 1679328403526,
-  "endDate" : 1679328413526
+  "startDate" : 1679584194815,
+  "endDate" : 1679584204815
 }</code></pre>
 </div>
 </div>
@@ -3500,7 +3519,7 @@ Content-Length: 257
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
-Date: Mon, 20 Mar 2023 16:06:43 GMT
+Date: Thu, 23 Mar 2023 15:09:54 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive</code></pre>
 </div>
@@ -3540,7 +3559,7 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:43 GMT
+Date: Thu, 23 Mar 2023 15:09:54 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 1607
@@ -3557,7 +3576,7 @@ Content-Length: 1607
     "jobParameters" : {
       "parameters" : {
         "date" : {
-          "parameter" : "2023/03/20 17:06:43:129[date]",
+          "parameter" : "2023/03/23 16:09:54:381[date]",
           "parameterType" : "DATE"
         }
       }
@@ -3580,9 +3599,9 @@ Content-Length: 1607
       "readSkipCount" : 0,
       "processSkipCount" : 0,
       "writeSkipCount" : 0,
-      "startTime" : "2023-03-20T16:06:43.134+00:00",
-      "endTime" : "2023-03-20T16:06:43.142+00:00",
-      "lastUpdated" : "2023-03-20T16:06:43.142+00:00",
+      "startTime" : "2023-03-23T15:09:54.390+00:00",
+      "endTime" : "2023-03-23T15:09:54.394+00:00",
+      "lastUpdated" : "2023-03-23T15:09:54.395+00:00",
       "exitStatus" : {
         "exitCode" : "COMPLETED",
         "exitDescription" : ""
@@ -3592,10 +3611,10 @@ Content-Length: 1607
       "failureExceptions" : [ ]
     } ],
     "status" : "COMPLETED",
-    "startTime" : "2023-03-20T16:06:43.131+00:00",
-    "createTime" : "2023-03-20T16:06:43.130+00:00",
-    "endTime" : "2023-03-20T16:06:43.143+00:00",
-    "lastUpdated" : "2023-03-20T16:06:43.178+00:00",
+    "startTime" : "2023-03-23T15:09:54.385+00:00",
+    "createTime" : "2023-03-23T15:09:54.384+00:00",
+    "endTime" : "2023-03-23T15:09:54.397+00:00",
+    "lastUpdated" : "2023-03-23T15:09:54.418+00:00",
     "exitStatus" : {
       "exitCode" : "COMPLETED",
       "exitDescription" : ""
@@ -3636,7 +3655,7 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:42 GMT
+Date: Thu, 23 Mar 2023 15:09:53 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 918
@@ -3653,7 +3672,7 @@ Content-Length: 918
     "jobParameters" : {
       "parameters" : {
         "date" : {
-          "parameter" : "2023/03/20 17:06:43:039[date]",
+          "parameter" : "2023/03/23 16:09:54:261[date]",
           "parameterType" : "DATE"
         }
       }
@@ -3665,10 +3684,10 @@ Content-Length: 918
     },
     "stepExecutions" : [ ],
     "status" : "COMPLETED",
-    "startTime" : "2023-03-20T16:06:43.041+00:00",
-    "createTime" : "2023-03-20T16:06:43.041+00:00",
-    "endTime" : "2023-03-20T16:06:43.046+00:00",
-    "lastUpdated" : "2023-03-20T16:06:43.068+00:00",
+    "startTime" : "2023-03-23T15:09:54.286+00:00",
+    "createTime" : "2023-03-23T15:09:54.283+00:00",
+    "endTime" : "2023-03-23T15:09:54.302+00:00",
+    "lastUpdated" : "2023-03-23T15:09:54.315+00:00",
     "exitStatus" : {
       "exitCode" : "COMPLETED",
       "exitDescription" : ""
@@ -3709,7 +3728,7 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:43 GMT
+Date: Thu, 23 Mar 2023 15:09:54 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 1349
@@ -3720,7 +3739,7 @@ Content-Length: 1349
   "jobParameters" : {
     "parameters" : {
       "date" : {
-        "parameter" : "2023/03/20 17:06:43:391[date]",
+        "parameter" : "2023/03/23 16:09:54:625[date]",
         "parameterType" : "DATE"
       }
     }
@@ -3743,9 +3762,9 @@ Content-Length: 1349
     "readSkipCount" : 0,
     "processSkipCount" : 0,
     "writeSkipCount" : 0,
-    "startTime" : "2023-03-20T16:06:43.395+00:00",
-    "endTime" : "2023-03-20T16:06:43.397+00:00",
-    "lastUpdated" : "2023-03-20T16:06:43.397+00:00",
+    "startTime" : "2023-03-23T15:09:54.632+00:00",
+    "endTime" : "2023-03-23T15:09:54.635+00:00",
+    "lastUpdated" : "2023-03-23T15:09:54.636+00:00",
     "exitStatus" : {
       "exitCode" : "COMPLETED",
       "exitDescription" : ""
@@ -3755,10 +3774,10 @@ Content-Length: 1349
     "failureExceptions" : [ ]
   } ],
   "status" : "COMPLETED",
-  "startTime" : "2023-03-20T16:06:43.393+00:00",
-  "createTime" : "2023-03-20T16:06:43.392+00:00",
-  "endTime" : "2023-03-20T16:06:43.398+00:00",
-  "lastUpdated" : "2023-03-20T16:06:43.428+00:00",
+  "startTime" : "2023-03-23T15:09:54.628+00:00",
+  "createTime" : "2023-03-23T15:09:54.627+00:00",
+  "endTime" : "2023-03-23T15:09:54.637+00:00",
+  "lastUpdated" : "2023-03-23T15:09:54.653+00:00",
   "exitStatus" : {
     "exitCode" : "COMPLETED",
     "exitDescription" : ""
@@ -3781,8 +3800,8 @@ Content-Length: 1349
     -H 'Content-Type: application/json' \
     -d '{
   "EXIT_STATUS" : "COMPLETED",
-  "END_DATE" : 1679328502521,
-  "START_DATE" : 1679328302521
+  "END_DATE" : 1679584293694,
+  "START_DATE" : 1679584093694
 }'</code></pre>
 </div>
 </div>
@@ -3799,8 +3818,8 @@ Content-Length: 99
 
 {
   "EXIT_STATUS" : "COMPLETED",
-  "END_DATE" : 1679328502521,
-  "START_DATE" : 1679328302521
+  "END_DATE" : 1679584293694,
+  "START_DATE" : 1679584093694
 }</code></pre>
 </div>
 </div>
@@ -3812,7 +3831,7 @@ Content-Length: 99
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:42 GMT
+Date: Thu, 23 Mar 2023 15:09:53 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 2826
@@ -3823,7 +3842,7 @@ Content-Length: 2826
   "jobParameters" : {
     "parameters" : {
       "date" : {
-        "parameter" : "2023/03/20 17:06:42:480[date]",
+        "parameter" : "2023/03/23 16:09:53:661[date]",
         "parameterType" : "DATE"
       }
     }
@@ -3835,10 +3854,10 @@ Content-Length: 2826
   },
   "stepExecutions" : [ ],
   "status" : "COMPLETED",
-  "startTime" : "2023-03-20T16:06:42.484+00:00",
-  "createTime" : "2023-03-20T16:06:42.483+00:00",
-  "endTime" : "2023-03-20T16:06:42.490+00:00",
-  "lastUpdated" : "2023-03-20T16:06:42.519+00:00",
+  "startTime" : "2023-03-23T15:09:53.666+00:00",
+  "createTime" : "2023-03-23T15:09:53.664+00:00",
+  "endTime" : "2023-03-23T15:09:53.680+00:00",
+  "lastUpdated" : "2023-03-23T15:09:53.693+00:00",
   "exitStatus" : {
     "exitCode" : "COMPLETED",
     "exitDescription" : ""
@@ -3851,7 +3870,7 @@ Content-Length: 2826
   "jobParameters" : {
     "parameters" : {
       "date" : {
-        "parameter" : "2023/03/20 17:06:42:480[date]",
+        "parameter" : "2023/03/23 16:09:53:661[date]",
         "parameterType" : "DATE"
       }
     }
@@ -3863,10 +3882,10 @@ Content-Length: 2826
   },
   "stepExecutions" : [ ],
   "status" : "COMPLETED",
-  "startTime" : "2023-03-20T16:06:42.389+00:00",
-  "createTime" : "2023-03-20T16:06:42.387+00:00",
-  "endTime" : "2023-03-20T16:06:42.395+00:00",
-  "lastUpdated" : "2023-03-20T16:06:42.426+00:00",
+  "startTime" : "2023-03-23T15:09:53.567+00:00",
+  "createTime" : "2023-03-23T15:09:53.565+00:00",
+  "endTime" : "2023-03-23T15:09:53.578+00:00",
+  "lastUpdated" : "2023-03-23T15:09:53.597+00:00",
   "exitStatus" : {
     "exitCode" : "COMPLETED",
     "exitDescription" : ""
@@ -3879,7 +3898,7 @@ Content-Length: 2826
   "jobParameters" : {
     "parameters" : {
       "date" : {
-        "parameter" : "2023/03/20 17:06:42:480[date]",
+        "parameter" : "2023/03/23 16:09:53:661[date]",
         "parameterType" : "DATE"
       }
     }
@@ -3891,10 +3910,10 @@ Content-Length: 2826
   },
   "stepExecutions" : [ ],
   "status" : "COMPLETED",
-  "startTime" : "2023-03-20T16:06:40.869+00:00",
-  "createTime" : "2023-03-20T16:06:40.866+00:00",
-  "endTime" : "2023-03-20T16:06:40.885+00:00",
-  "lastUpdated" : "2023-03-20T16:06:40.917+00:00",
+  "startTime" : "2023-03-23T15:09:52.107+00:00",
+  "createTime" : "2023-03-23T15:09:52.104+00:00",
+  "endTime" : "2023-03-23T15:09:52.122+00:00",
+  "lastUpdated" : "2023-03-23T15:09:52.134+00:00",
   "exitStatus" : {
     "exitCode" : "COMPLETED",
     "exitDescription" : ""
@@ -3907,7 +3926,7 @@ Content-Length: 2826
   "jobParameters" : {
     "parameters" : {
       "date" : {
-        "parameter" : "2023/03/20 17:06:42:480[date]",
+        "parameter" : "2023/03/23 16:09:53:661[date]",
         "parameterType" : "DATE"
       }
     }
@@ -3919,10 +3938,10 @@ Content-Length: 2826
   },
   "stepExecutions" : [ ],
   "status" : "COMPLETED",
-  "startTime" : "2023-03-20T16:06:40.789+00:00",
-  "createTime" : "2023-03-20T16:06:40.781+00:00",
-  "endTime" : "2023-03-20T16:06:40.809+00:00",
-  "lastUpdated" : "2023-03-20T16:06:40.839+00:00",
+  "startTime" : "2023-03-23T15:09:52.044+00:00",
+  "createTime" : "2023-03-23T15:09:52.041+00:00",
+  "endTime" : "2023-03-23T15:09:52.062+00:00",
+  "lastUpdated" : "2023-03-23T15:09:52.075+00:00",
   "exitStatus" : {
     "exitCode" : "COMPLETED",
     "exitDescription" : ""
@@ -3989,7 +4008,7 @@ Content-Length: 215
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
-Date: Mon, 20 Mar 2023 16:06:40 GMT
+Date: Thu, 23 Mar 2023 15:09:51 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive</code></pre>
 </div>
@@ -4027,7 +4046,7 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:39 GMT
+Date: Thu, 23 Mar 2023 15:09:51 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 427
@@ -4081,7 +4100,7 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:40 GMT
+Date: Thu, 23 Mar 2023 15:09:51 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 985
@@ -4153,7 +4172,7 @@ Host: localhost</code></pre>
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Transfer-Encoding: chunked
-Date: Mon, 20 Mar 2023 16:06:39 GMT
+Date: Thu, 23 Mar 2023 15:09:51 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive
 Content-Length: 985
@@ -4257,7 +4276,7 @@ Content-Length: 438
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
-Date: Mon, 20 Mar 2023 16:06:40 GMT
+Date: Thu, 23 Mar 2023 15:09:51 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive</code></pre>
 </div>
@@ -4328,7 +4347,7 @@ Content-Length: 456
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Date: Mon, 20 Mar 2023 16:06:38 GMT
+Date: Thu, 23 Mar 2023 15:09:50 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive</code></pre>
 </div>
@@ -4361,7 +4380,7 @@ Host: localhost</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Date: Mon, 20 Mar 2023 16:06:38 GMT
+Date: Thu, 23 Mar 2023 15:09:49 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive</code></pre>
 </div>
@@ -4394,7 +4413,7 @@ Host: localhost</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Date: Mon, 20 Mar 2023 16:06:39 GMT
+Date: Thu, 23 Mar 2023 15:09:51 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive</code></pre>
 </div>
@@ -4427,7 +4446,7 @@ Host: localhost</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Date: Mon, 20 Mar 2023 16:06:39 GMT
+Date: Thu, 23 Mar 2023 15:09:50 GMT
 Keep-Alive: timeout=60
 Connection: keep-alive</code></pre>
 </div>

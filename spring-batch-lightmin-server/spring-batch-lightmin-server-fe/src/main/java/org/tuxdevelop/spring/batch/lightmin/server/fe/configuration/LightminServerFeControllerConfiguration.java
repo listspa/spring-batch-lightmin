@@ -1,5 +1,6 @@
 package org.tuxdevelop.spring.batch.lightmin.server.fe.configuration;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.Validator;
@@ -11,6 +12,7 @@ public class LightminServerFeControllerConfiguration {
 
     //IndexController
     @Bean
+    @ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe", value = "index", havingValue = "true", matchIfMissing = true)
     public IndexController indexController() {
         return new IndexController();
     }
@@ -98,6 +100,7 @@ public class LightminServerFeControllerConfiguration {
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe", value = "about", havingValue = "true", matchIfMissing = true)
     public AboutController aboutController() {
         return new AboutController();
     }

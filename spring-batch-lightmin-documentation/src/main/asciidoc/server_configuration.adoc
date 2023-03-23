@@ -93,6 +93,22 @@ spring:
           img-path: img/logo.png
 ----
 
+=== Enable/Disable Index and About
+
+If you want to disable index redirection and about page set variable to false.
+They are enabled by default.
+
+[source,yaml]
+----
+spring:
+  batch:
+    lightmin:
+      server:
+        fe:
+          index: false
+          about: false
+----
+
 === Server Metrics
 
 In order to collect metrics of a _Lightmin_ server , the following property has to be to _true_.
