@@ -1,5 +1,6 @@
 package org.tuxdevelop.spring.batch.lightmin.server.fe.controller;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @Validated
+@ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe.controller", value = "jobListeners", havingValue = "true", matchIfMissing = true)
 public class JobListenersController extends CommonController {
 
     private final JobListenerFeService jobListenerFeService;

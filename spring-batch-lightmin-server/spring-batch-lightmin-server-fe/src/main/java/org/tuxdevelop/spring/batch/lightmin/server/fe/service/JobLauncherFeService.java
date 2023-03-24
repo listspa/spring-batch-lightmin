@@ -15,7 +15,7 @@ import org.tuxdevelop.spring.batch.lightmin.server.support.RegistrationBean;
 @Slf4j
 public class JobLauncherFeService extends CommonFeService {
 
-    private final JobServerService jobServerService;
+    protected final JobServerService jobServerService;
 
     public JobLauncherFeService(final RegistrationBean registrationBean, final JobServerService jobServerService) {
         super(registrationBean);
@@ -47,7 +47,8 @@ public class JobLauncherFeService extends CommonFeService {
         final JobParameters jobParameters =
                 ApiParameterParser.parseParametersToJobParameters(jobLauncherModel.getJobParameters());
 
-        this.attachIncremeter(jobLauncherModel, jobParameters);
+        final JobIncrementer jobIncrementer = JobIncrementer.valueOf(jobLauncherModel.getJobIncrementer());
+        this.attachIncremeter(jobIncrementer, jobParameters);
 
         final JobLaunch jobLaunch = new JobLaunch();
         jobLaunch.setJobName(jobLauncherModel.getJobName());
@@ -57,8 +58,8 @@ public class JobLauncherFeService extends CommonFeService {
 
     }
 
-    void attachIncremeter(final JobLauncherModel jobLauncherModel, final JobParameters jobParameters) {
-        final JobIncrementer jobIncrementer = JobIncrementer.valueOf(jobLauncherModel.getJobIncrementer());
+    protected void attachIncremeter(final JobIncrementer jobIncrementer, final JobParameters jobParameters) {
+
         if (JobIncrementer.DATE.equals(jobIncrementer)) {
             final JobParameter jobParameter = new JobParameter();
             jobParameter.setParameter(System.currentTimeMillis());

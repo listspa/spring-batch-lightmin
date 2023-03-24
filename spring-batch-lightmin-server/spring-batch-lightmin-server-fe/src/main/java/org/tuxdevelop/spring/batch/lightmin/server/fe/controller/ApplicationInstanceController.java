@@ -1,5 +1,6 @@
 package org.tuxdevelop.spring.batch.lightmin.server.fe.controller;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.tuxdevelop.spring.batch.lightmin.server.fe.model.common.ApplicationCo
 import org.tuxdevelop.spring.batch.lightmin.server.fe.service.LightminClientApplicationFeService;
 
 @Controller
+@ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe.controller", value = "applicationInstance", havingValue = "true", matchIfMissing = true)
 public class ApplicationInstanceController extends CommonController {
 
     private final LightminClientApplicationFeService applicationFeService;

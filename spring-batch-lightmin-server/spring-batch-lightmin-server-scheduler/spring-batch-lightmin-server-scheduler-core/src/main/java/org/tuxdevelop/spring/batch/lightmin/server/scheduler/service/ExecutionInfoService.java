@@ -66,7 +66,7 @@ public class ExecutionInfoService {
         return this.schedulerExecutionService.getExecutionCount(status);
     }
 
-    private void createSchedulerConfigurationForUnknowConfigurationId(final SchedulerConfiguration configuration) {
+    protected void createSchedulerConfigurationForUnknowConfigurationId(final SchedulerConfiguration configuration) {
         configuration.setStatus(ServerSchedulerStatus.STOPPED);
         configuration.setApplication("UNKNOWN");
         configuration.setCronExpression("");

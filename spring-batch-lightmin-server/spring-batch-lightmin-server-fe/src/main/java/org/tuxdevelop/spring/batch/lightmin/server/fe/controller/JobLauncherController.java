@@ -1,6 +1,7 @@
 package org.tuxdevelop.spring.batch.lightmin.server.fe.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Controller
+@ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe.controller", value = "jobLauncher", havingValue = "true", matchIfMissing = true)
 public class JobLauncherController extends CommonController {
 
     private final JobLauncherFeService jobLauncherFeService;

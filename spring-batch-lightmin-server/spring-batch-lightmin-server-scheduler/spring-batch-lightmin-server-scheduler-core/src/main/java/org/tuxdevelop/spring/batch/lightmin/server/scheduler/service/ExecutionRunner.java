@@ -23,10 +23,10 @@ import java.util.Map;
 @Slf4j
 public class ExecutionRunner implements Runnable {
 
-    private final SchedulerExecution schedulerExecution;
-    private final ServerSchedulerService serverSchedulerService;
-    private final ServerSchedulerCoreConfigurationProperties properties;
-    private final SchedulerConfiguration schedulerConfiguration;
+    protected final SchedulerExecution schedulerExecution;
+    protected final ServerSchedulerService serverSchedulerService;
+    protected final ServerSchedulerCoreConfigurationProperties properties;
+    protected final SchedulerConfiguration schedulerConfiguration;
 
 
     public ExecutionRunner(
@@ -46,19 +46,10 @@ public class ExecutionRunner implements Runnable {
             this.updateExecution(ExecutionStatus.RUNNING, Boolean.TRUE);
             Integer finalStatus;
             try {
-                this.fireJobLaunch(this.schedulerConfiguration);
-                this.updateExecution(ExecutionStatus.FINISHED, Boolean.FALSE);
-                finalStatus = ExecutionStatus.FINISHED;
+                finalStatus = getStatusAfterJobExecution();
             } catch (final Exception e) {
                 log.error("Execution for {} failed ", this.schedulerExecution, e);
-                if (this.schedulerConfiguration.getRetryable() &&
-                        this.schedulerExecution.getExecutionCount() <= this.schedulerConfiguration.getMaxRetries()) {
-                    this.updateExecution(ExecutionStatus.FAILED, Boolean.FALSE, Boolean.TRUE);
-                    finalStatus = ExecutionStatus.FAILED;
-                } else {
-                    this.updateExecution(ExecutionStatus.LOST, Boolean.FALSE);
-                    finalStatus = ExecutionStatus.LOST;
-                }
+                finalStatus = this.manageException();
             }
             if (ExecutionStatus.FINISHED.equals(finalStatus)) {
                 this.createNextExecution(this.schedulerConfiguration.getCronExpression());
@@ -81,6 +72,12 @@ public class ExecutionRunner implements Runnable {
         }
     }
 
+    protected Integer getStatusAfterJobExecution() throws Exception {
+        this.fireJobLaunch(this.schedulerConfiguration);
+        this.updateExecution(ExecutionStatus.FINISHED, Boolean.FALSE);
+        return ExecutionStatus.FINISHED;
+    }
+
     /*
      * HANDLE EXECUTION
      */
@@ -101,6 +98,19 @@ public class ExecutionRunner implements Runnable {
         }
         this.serverSchedulerService.saveSchedulerExecution(this.schedulerExecution);
 
+    }
+
+    protected Integer manageException() {
+        Integer finalStatus;
+        if (this.schedulerConfiguration.getRetryable() &&
+                this.schedulerExecution.getExecutionCount() <= this.schedulerConfiguration.getMaxRetries()) {
+            this.updateExecution(ExecutionStatus.FAILED, Boolean.FALSE, Boolean.TRUE);
+            finalStatus = ExecutionStatus.FAILED;
+        } else {
+            this.updateExecution(ExecutionStatus.LOST, Boolean.FALSE);
+            finalStatus = ExecutionStatus.LOST;
+        }
+        return finalStatus;
     }
 
     private void determineNextRetryDate(final SchedulerExecution schedulerExecution) {
@@ -161,7 +171,7 @@ public class ExecutionRunner implements Runnable {
                     }
             );
         } else {
-            log.warn("No lightmin applications availabe, skipping joblauch {}", jobLaunch);
+            log.warn("No lightmin applications available, skipping joblaunch {}", jobLaunch);
         }
     }
 
@@ -170,13 +180,16 @@ public class ExecutionRunner implements Runnable {
         final List<LightminClientApplication> lightminClientApplications = new ArrayList<>();
         final List<LightminClientApplication> foundInstances =
                 new ArrayList<>(this.serverSchedulerService.findLightminApplicationsByName(applicationName));
+        log.info("Application " + applicationName + " - found instances: " + foundInstances.size());
         if (count > foundInstances.size()) {
             if (this.properties.getFailOnInstanceExecutionCount()) {
                 throw new SchedulerRuntimException("Desired Instance Execution Count: " + count + " Found: "
-                        + foundInstances.size() + "! spring.batch.lightmin.server.scheduler.failOnInstanceExecutionCount is set to TRUE. Failing!");
+                                                           + foundInstances.size() + " for application " + applicationName +
+                                                           "! spring.batch.lightmin.server.scheduler.failOnInstanceExecutionCount is set to TRUE. Failing!");
             } else {
                 log.warn("Desired Instance Execution Count: " + count + " Found: "
-                        + foundInstances.size() + "! Executing on available instances");
+                                 + foundInstances.size() + " for application " + applicationName +
+                                 "! Executing on available instances");
             }
         } else {
             for (int i = 0; i < count; i++) {
@@ -214,7 +227,7 @@ public class ExecutionRunner implements Runnable {
             jobParameter.setParameterType(ParameterType.LONG);
             jobParameters.getParameters().put(jobIncrementer.getIncrementerIdentifier(), jobParameter);
         } else {
-            log.debug("nothing to map for job incrementer: {}", jobIncrementer);
+            log.debug("Nothing to map for job incrementer: {}", jobIncrementer);
         }
     }
 

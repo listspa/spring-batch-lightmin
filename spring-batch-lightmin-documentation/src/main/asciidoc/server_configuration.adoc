@@ -105,8 +105,22 @@ spring:
     lightmin:
       server:
         fe:
-          index: false
-          about: false
+          controller:
+            index: false
+            about: false
+            application: false
+            applicationInstance: false
+            batchJobs: false
+            batchJobExecution: false
+            events: false
+            jobExecutionEvents: false
+            jobLauncher: false
+            jobScheduler: false
+            jobListeners: false
+            globalExceptionAdvice: false
+            journals: false
+            serverScheduler: false
+
 ----
 
 === Server Metrics

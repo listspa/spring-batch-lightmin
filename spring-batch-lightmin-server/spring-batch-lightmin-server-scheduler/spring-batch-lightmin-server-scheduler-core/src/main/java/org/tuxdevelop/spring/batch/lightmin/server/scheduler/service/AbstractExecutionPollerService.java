@@ -10,10 +10,10 @@ import java.util.List;
 
 public abstract class AbstractExecutionPollerService implements ExecutionPollerService {
 
-    private final ServerSchedulerService serverSchedulerService;
-    private final SchedulerExecutionService schedulerExecutionService;
-    private final ThreadPoolTaskExecutor threadPoolTaskExecutor;
-    private final ServerSchedulerCoreConfigurationProperties properties;
+    protected final ServerSchedulerService serverSchedulerService;
+    protected final SchedulerExecutionService schedulerExecutionService;
+    protected final ThreadPoolTaskExecutor threadPoolTaskExecutor;
+    protected final ServerSchedulerCoreConfigurationProperties properties;
 
     protected AbstractExecutionPollerService(final ServerSchedulerService serverSchedulerService,
                                              final SchedulerExecutionService schedulerExecutionService,
@@ -38,7 +38,7 @@ public abstract class AbstractExecutionPollerService implements ExecutionPollerS
         this.runExecutions(executions);
     }
 
-    private void runExecutions(final List<SchedulerExecution> executions) {
+    protected void runExecutions(final List<SchedulerExecution> executions) {
         executions.parallelStream()
                 .forEach(
                         schedulerExecution -> {

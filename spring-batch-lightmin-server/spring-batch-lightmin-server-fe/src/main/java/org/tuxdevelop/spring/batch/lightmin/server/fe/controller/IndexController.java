@@ -8,7 +8,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe", value = "index", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe.controller", value = "index", havingValue = "true", matchIfMissing = true)
 public class IndexController extends CommonController {
 
     @GetMapping(value = "/")

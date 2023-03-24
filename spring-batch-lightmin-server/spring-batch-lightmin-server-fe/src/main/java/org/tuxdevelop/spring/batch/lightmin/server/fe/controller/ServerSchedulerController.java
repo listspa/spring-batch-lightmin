@@ -1,5 +1,6 @@
 package org.tuxdevelop.spring.batch.lightmin.server.fe.controller;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import org.tuxdevelop.spring.batch.lightmin.server.fe.service.ServerSchedulerFeS
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@ConditionalOnProperty(prefix = "spring.batch.lightmin.server.fe.controller", value = "serverScheduler", havingValue = "true", matchIfMissing = true)
 public class ServerSchedulerController extends CommonController {
 
     private final ServerSchedulerFeService serverSchedulerFeService;
