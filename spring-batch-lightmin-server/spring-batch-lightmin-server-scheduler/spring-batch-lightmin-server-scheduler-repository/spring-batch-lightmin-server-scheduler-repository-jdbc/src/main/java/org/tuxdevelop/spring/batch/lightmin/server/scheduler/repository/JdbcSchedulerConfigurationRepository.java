@@ -583,7 +583,7 @@ public class JdbcSchedulerConfigurationRepository implements SchedulerConfigurat
             final static String ID = "id";
             final static String SCHEDULER_CONFIGURATION_ID = "scheduler_configuration_id";
             final static String TYPE = "type";
-            final static String VALUE = "value";
+            final static String VALUE = "config_value";
         }
 
         private class SchedulderConfigurationValueRowMapper implements RowMapper<SchedulerConfigurationValue> {

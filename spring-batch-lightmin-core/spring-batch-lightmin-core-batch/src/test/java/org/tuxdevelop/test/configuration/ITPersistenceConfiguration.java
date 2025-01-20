@@ -24,6 +24,7 @@ public class ITPersistenceConfiguration {
         final EmbeddedDatabaseBuilder embeddedDatabaseBuilder = new EmbeddedDatabaseBuilder();
         return embeddedDatabaseBuilder.addScript("classpath:create.sql")
                 .setType(EmbeddedDatabaseType.H2)
+                .setName("testDB;MODE=LEGACY")
                 .build();
     }
 }

@@ -41,6 +41,7 @@ public class LightminServer {
                 .addScript("classpath:org/tuxdevelop/spring/batch/lightmin/repository/drop_schema_h2.sql")
                 .addScript("classpath:org/tuxdevelop/spring/batch/lightmin/repository/schema_h2.sql")
                 .addScript("classpath:properties/sample/server/sql/inserts.sql")
+                .setName("testDB;MODE=LEGACY")
                 .setType(EmbeddedDatabaseType.H2).build();
     }
 
