@@ -6,7 +6,7 @@
 
     <groupId>org.listspa</groupId>
     <artifactId>spring-batch-lightmin-bom</artifactId>
-    <version>3.0.3</version>
+    <version>4.0.0</version>
     <packaging>pom</packaging>
 
     <name>Spring Batch Lightmin BOM</name>
